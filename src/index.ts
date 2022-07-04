@@ -1,0 +1,1 @@
+export { GCPPubSubInstrumentation } from './instrumentation';

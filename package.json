@@ -1,0 +1,46 @@
+{
+  "name": "@tommbee/opentelemetry-instrumentation-gcp-pubsub",
+  "version": "0.0.1",
+  "description": "Open Telemetry instrumentation for GCP PubSub",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=8.12.0"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "clean": "rimraf build/*",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "postinstall": "npm run build",
+    "prebuild": "rimraf dist",
+    "tdd": "npm run test -- --watch-extensions ts --watch",
+    "test": "nyc ts-mocha -p tsconfig.json --require '@opentelemetry/contrib-test-utils' 'test/**/*.test.ts'",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/issues"
+  },
+  "homepage": "https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.4",
+    "@typescript-eslint/parser": "^5.30.4",
+    "eslint": "^8.19.0",
+    "gts": "^3.1.0",
+    "husky": "^8.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^3.0.1",
+    "@opentelemetry/api": "^1.1.0",
+    "@opentelemetry/instrumentation": "^0.29.2",
+    "@opentelemetry/semantic-conventions": "^1.3.1"
+  }
+}
