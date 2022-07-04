@@ -29,6 +29,8 @@
   },
   "homepage": "https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub#readme",
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^5.30.4",
     "@typescript-eslint/parser": "^5.30.4",
     "eslint": "^8.19.0",
