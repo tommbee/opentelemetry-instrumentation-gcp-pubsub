@@ -1,6 +1,6 @@
 {
   "name": "@tommbee/opentelemetry-instrumentation-gcp-pubsub",
-  "version": "0.0.1",
+  "version": "0.29.0",
   "description": "Open Telemetry instrumentation for GCP PubSub",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -14,7 +14,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "postinstall": "npm run build",
-    "prebuild": "rimraf dist",
+    "prebuild": "npm run clean",
     "tdd": "npm run test -- --watch-extensions ts --watch",
     "test": "nyc ts-mocha -p tsconfig.json --require '@opentelemetry/contrib-test-utils' 'test/**/*.test.ts'",
     "watch": "tsc -w"
