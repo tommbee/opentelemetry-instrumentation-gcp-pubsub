@@ -88,12 +88,12 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
       if (eventName === 'message') {
         const originalListener = listener;
 
-        listener = async (message: Message) => {
+        listener = (message: Message) => {
           const ctx = propagation.extract(
             context.active(),
             message.attributes || {}
           );
-          await self.tracer.startActiveSpan(
+          self.tracer.startActiveSpan(
             self._config.subscriberSpanName || `${this.name} process`,
             {
               kind: SpanKind.CONSUMER,
@@ -106,22 +106,19 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
                 [SemanticAttributes.MESSAGING_DESTINATION_KIND]: 'topic',
                 [SemanticAttributes.MESSAGING_MESSAGE_ID]: message.id,
                 [SemanticAttributes.MESSAGING_PROTOCOL]: 'pubsub',
-                [SemanticAttributes.MESSAGING_MESSAGE_PAYLOAD_SIZE_BYTES]: (
-                  message.data as Buffer
-                ).length,
+                [SemanticAttributes.MESSAGING_MESSAGE_PAYLOAD_SIZE_BYTES]:
+                  message.data ? (message.data as Buffer).length : undefined,
                 'messaging.pubsub.received_at': message.received,
                 'messaging.pubsub.acknowlege_id': message.ackId,
                 'messaging.pubsub.delivery_attempt': message.deliveryAttempt,
               },
             },
             ctx,
-            async span => {
+            span => {
               try {
                 safeExecuteInTheMiddle(
                   () => originalListener.apply(this, [message]),
-                  () => {
-                    span.end();
-                  },
+                  () => {},
                   false
                 );
               } catch (err: unknown) {
@@ -131,7 +128,9 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
                     message: String(err),
                   })
                   .end();
+                throw err;
               }
+              span.end();
             }
           );
         };
