@@ -1,1 +1,1 @@
-export { GCPPubSubInstrumentation } from './instrumentation';
+export * from './instrumentation';

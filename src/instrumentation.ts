@@ -3,13 +3,14 @@ import {
   InstrumentationBase,
   isWrapped,
   InstrumentationNodeModuleDefinition,
-  safeExecuteInTheMiddle,
+  safeExecuteInTheMiddle, InstrumentationConfig,
 } from '@opentelemetry/instrumentation';
 import {
   context,
   propagation,
   SpanKind,
   SpanStatusCode,
+  diag,
 } from '@opentelemetry/api';
 import { SemanticAttributes } from '@opentelemetry/semantic-conventions';
 import { Subscription, Message } from '@google-cloud/pubsub';
@@ -17,6 +18,11 @@ import { Subscription, Message } from '@google-cloud/pubsub';
 export class GCPPubSubInstrumentation extends InstrumentationBase<
   typeof PubSub
 > {
+  constructor(config: InstrumentationConfig = {}) {
+    console.log('pubsub instrucmentation constructor');
+    super('opentelemetry-instrumentation-gcp-pubsub', '0.0.1', { ...config });
+  }
+
   private _getOnPatch(original: Subscription['on']) {
     const self = this;
     return function on(
@@ -24,6 +30,7 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
       eventName: string | symbol,
       listener: (...args: any[]) => void
     ) {
+      console.log('patching listener');
       if (eventName === 'message') {
         const originalListener = listener;
 
@@ -91,7 +98,10 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
     moduleExports: typeof PubSub,
     moduleVersion: string | undefined
   ) {
+    console.log('patching');
+    diag.debug(`Applying patch for @${moduleVersion}`);
     if (!isWrapped(moduleExports.Subscription.prototype.on)) {
+      console.log('wrapping');
       this._wrap(
         moduleExports.Subscription.prototype,
         'on',
@@ -106,6 +116,7 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
     | InstrumentationNodeModuleDefinition<typeof PubSub>
     | InstrumentationNodeModuleDefinition<typeof PubSub>[]
     | void {
+    diag.debug(`Initiating PubSub instrumentation`);
     return [
       new InstrumentationNodeModuleDefinition<typeof PubSub>(
         '@google-cloud/pubsub',
