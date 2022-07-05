@@ -6,7 +6,8 @@ import {
   getTestSpans,
   registerInstrumentationTesting,
 } from '@opentelemetry/contrib-test-utils';
-import { diag } from '@opentelemetry/api';
+import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 const instrumentation = registerInstrumentationTesting(
   new GCPPubSubInstrumentation()
 );
@@ -76,16 +77,6 @@ describe('GCP PubSub instrumentation', () => {
         ]
       ).toBeUndefined();
       expect(span.attributes['messaging.pubsub.acknowlege_id']).toEqual(1);
-    });
-
-    it('should unwrap on method', async () => {
-      const debugSpy = sinon.spy(diag, 'debug');
-      instrumentation.disable();
-      sinon.assert.calledWith(
-        debugSpy,
-        'Unpatching @google-cloud/pubsub@3.0.1'
-      );
-      sinon.assert.callCount(debugSpy, 1);
     });
 
     it('should set null config', async () => {
