@@ -1,0 +1,61 @@
+{
+  "name": "@tommbee/opentelemetry-instrumentation-gcp-pubsub",
+  "version": "0.0.1",
+  "description": "Open Telemetry instrumentation for GCP PubSub",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=8.12.0"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "clean": "rimraf build/*",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "postinstall": "npm run build",
+    "prebuild": "npm run clean && npm run version:update",
+    "tdd": "npm run test -- --watch-extensions ts --watch",
+    "test": "nyc --reporter=html --reporter=text ts-mocha --require '@opentelemetry/contrib-test-utils' 'test/**/*.spec.ts'",
+    "test:ci": "nyc --reporter=json --reporter=text ts-mocha --require '@opentelemetry/contrib-test-utils' --reporter mocha-junit-reporter 'test/**/*.spec.ts'",
+    "version:update": "node scripts/update-version.js",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/issues"
+  },
+  "homepage": "https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@opentelemetry/contrib-test-utils": "^0.31.0",
+    "@types/mocha": "^9.1.1",
+    "@types/sinon": "^10.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.30.4",
+    "@typescript-eslint/parser": "^5.30.4",
+    "eslint": "^8.19.0",
+    "expect": "^28.1.1",
+    "google-pubsub-mock": "^1.3.0",
+    "gts": "^3.1.0",
+    "husky": "^8.0.1",
+    "mocha": "^10.0.0",
+    "mocha-junit-reporter": "^2.0.2",
+    "nyc": "^15.1.0",
+    "opentelemetry-instrumentation-mocha": "^0.0.7-alpha.1",
+    "rimraf": "^3.0.2",
+    "sinon": "^14.0.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@google-cloud/pubsub": "^3.0.1",
+    "@opentelemetry/api": "^1.1.0",
+    "@opentelemetry/instrumentation": "^0.29.2",
+    "@opentelemetry/semantic-conventions": "^1.3.1"
+  }
+}
