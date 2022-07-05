@@ -51,7 +51,7 @@ describe('GCP PubSub instrumentation', () => {
       const [span, spanTwo] = getTestSpans();
 
       expect(span.attributes[SemanticAttributes.MESSAGING_SYSTEM]).toEqual(
-        'pubsub'
+        'pubsubs'
       );
       expect(span.attributes[SemanticAttributes.MESSAGING_PROTOCOL]).toEqual(
         'pubsub'
