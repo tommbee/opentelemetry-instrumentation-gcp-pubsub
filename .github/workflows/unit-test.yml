@@ -23,7 +23,3 @@ jobs:
         if: always()
         with:
           report_paths: 'test-results.xml'
-      - name: Report Coverage
-        uses: codecov/codecov-action@v3
-        with:
-          verbose: true
