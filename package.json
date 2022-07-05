@@ -17,7 +17,7 @@
     "prebuild": "npm run clean && npm run version:update",
     "tdd": "npm run test -- --watch-extensions ts --watch",
     "test": "nyc --reporter=html --reporter=text ts-mocha --require '@opentelemetry/contrib-test-utils' 'test/**/*.spec.ts'",
-    "test:ci": "nyc ts-mocha --require '@opentelemetry/contrib-test-utils' --reporter mocha-junit-reporter 'test/**/*.spec.ts'",
+    "test:ci": "nyc --reporter=json --reporter=text ts-mocha --require '@opentelemetry/contrib-test-utils' --reporter mocha-junit-reporter 'test/**/*.spec.ts'",
     "version:update": "node scripts/update-version.js",
     "watch": "tsc -w"
   },

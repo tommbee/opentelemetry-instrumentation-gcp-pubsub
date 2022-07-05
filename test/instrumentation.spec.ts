@@ -6,8 +6,6 @@ import {
   getTestSpans,
   registerInstrumentationTesting,
 } from '@opentelemetry/contrib-test-utils';
-import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
-diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.DEBUG);
 const instrumentation = registerInstrumentationTesting(
   new GCPPubSubInstrumentation()
 );
