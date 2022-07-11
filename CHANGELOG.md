@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/compare/v1.1.1...v1.1.2) (2022-07-11)
+
+
+### Bug Fixes
+
+* remove console.log ([d4819c5](https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/commit/d4819c5e2a581357c3aa7ae03c5a28a4a8228189))
+
 ## [1.1.1](https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/compare/v1.1.0...v1.1.1) (2022-07-11)
 
 
