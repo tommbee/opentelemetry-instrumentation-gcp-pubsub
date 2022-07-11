@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/compare/v1.1.0...v1.1.1) (2022-07-11)
+
+
+### Bug Fixes
+
+* fix npm reg URL ([a328bd9](https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/commit/a328bd96724444f236169776e1118519062c5cf4))
+
 ## [1.1.0](https://github.com/tommbee/opentelemetry-instrumentation-gcp-pubsub/compare/v1.0.0...v1.1.0) (2022-07-11)
 
 
