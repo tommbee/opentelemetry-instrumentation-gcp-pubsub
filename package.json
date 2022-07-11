@@ -1,6 +1,6 @@
 {
   "name": "@tommbee/opentelemetry-instrumentation-gcp-pubsub",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Open Telemetry instrumentation for GCP PubSub",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
