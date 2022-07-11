@@ -67,7 +67,6 @@ export class GCPPubSubInstrumentation extends InstrumentationBase<
   ) {
     diag.debug(`Applying patch for @google-cloud/pubsub@${moduleVersion}`);
 
-    console.log(isWrapped(moduleExports.Subscription.prototype.on));
     if (!isWrapped(moduleExports.Subscription.prototype.on)) {
       this._wrap(
         moduleExports.Subscription.prototype,
